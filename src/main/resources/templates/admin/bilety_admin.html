@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bilety</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .ticket-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .ticket-image img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<h1>Lista Biletów</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Rodzaj Biletu</th>
+        <th>Data Zakupu</th>
+        <th>Długość Biletu</th>
+        <th>Cena</th>
+        <th>ID Pracownika</th>
+        <th>ID Klienta</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bilet : ${bilety}">
+        <td th:text="${bilet.rodzajBiletu}"></td>
+        <td th:text="${bilet.dataZakupu}"></td>
+        <td th:text="${bilet.dlugoscBiletu}"></td>
+        <td th:text="${bilet.cena}"></td>
+        <td th:text="${bilet.idPracownika}"></td>
+        <td th:text="${bilet.idKlienta}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

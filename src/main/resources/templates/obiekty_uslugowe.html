@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Obiekty Usługowe</title>
+</head>
+<body>
+<h1>Lista Obiektów Usługowych</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID Obiektu</th>
+        <th>Nazwa</th>
+        <th>Kategoria</th>
+        <th>Data Najmu</th>
+        <th>Czynsz</th>
+        <th>ID Strefy</th>
+        <th>ID Właściciela</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="obiekt : ${obiekty}">
+        <td th:text="${obiekt.idObiektu}"></td>
+        <td th:text="${obiekt.nazwa}"></td>
+        <td th:text="${obiekt.kategoria}"></td>
+        <td th:text="${obiekt.dataNajmu}"></td>
+        <td th:text="${obiekt.czynsz}"></td>
+        <td th:text="${obiekt.idStrefy}"></td>
+        <td th:text="${obiekt.idWlasciciela}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

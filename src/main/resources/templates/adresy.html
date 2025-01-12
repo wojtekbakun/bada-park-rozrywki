@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Adresy</title>
+</head>
+<body>
+<h1>Lista Adresów</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID Adresu</th>
+        <th>Kraj</th>
+        <th>Miasto</th>
+        <th>Ulica</th>
+        <th>Nr Obiektu</th>
+        <th>Kod Pocztowy</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="adres : ${adresy}">
+        <td th:text="${adres.idAdresu}"></td>
+        <td th:text="${adres.kraj}"></td>
+        <td th:text="${adres.miasto}"></td>
+        <td th:text="${adres.ulica}"></td>
+        <td th:text="${adres.nrObiektu}"></td>
+        <td th:text="${adres.kodPocztowy}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

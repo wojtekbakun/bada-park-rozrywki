@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Twoje Bilety</title>
+    <style>
+        button.return-btn {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.return-btn:hover {
+            background-color: #007B9A;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+<button onclick="window.location.href='/index'" class="return-btn">
+    Powrót do strony głównej
+</button>
+
+<h1>Kup bilet</h1>
+<form action="/bilety_user" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+    <label for="rodzajBiletu">Rodzaj Biletu:</label>
+    <select id="rodzajBiletu" name="rodzajBiletu" required>
+        <option value="Ulgowy">Ulgowy</option>
+        <option value="Normalny">Normalny</option>
+    </select>
+
+    <label for="dlugoscBiletu">Długość Biletu:</label>
+    <select id="dlugoscBiletu" name="dlugoscBiletu" required>
+        <option value="1">1 dzień</option>
+        <option value="2">2 dni</option>
+        <option value="3">3 dni</option>
+    </select>
+
+    <label for="cena">Cena:</label>
+    <input type="number" id="cena" name="cena" readonly>
+
+    <input type="hidden" id="idPracownika" name="idPracownika" value="0" readonly>
+    <input type="hidden" id="idKlienta" name="idKlienta" value="2">
+
+    <button type="submit">Kup bilet</button>
+</form>
+
+<h2>Twoje bilety</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Rodzaj Biletu</th>
+        <th>Data Zakupu</th>
+        <th>Długość Biletu</th>
+        <th>Cena</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bilet : ${userTickets}">
+        <td th:text="${bilet.rodzajBiletu}"></td>
+        <td th:text="${bilet.dataZakupu}"></td>
+        <td th:text="${bilet.dlugoscBiletu}"></td>
+        <td th:text="${bilet.cena}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const rodzajBiletu = document.getElementById("rodzajBiletu");
+        const dlugoscBiletu = document.getElementById("dlugoscBiletu");
+        const cenaInput = document.getElementById("cena");
+
+        function calculatePrice() {
+            const rodzaj = rodzajBiletu.value;
+            const dlugosc = parseInt(dlugoscBiletu.value, 10);
+            let cena = 0;
+
+            if (rodzaj === "Ulgowy") {
+                cena = dlugosc * 20; // 20 PLN za dzień
+            } else if (rodzaj === "Normalny") {
+                cena = dlugosc * 30; // 30 PLN za dzień
+            }
+
+            cenaInput.value = cena;
+        }
+
+        rodzajBiletu.addEventListener("change", calculatePrice);
+        dlugoscBiletu.addEventListener("change", calculatePrice);
+
+        // Wywołaj kalkulację ceny na starcie
+        calculatePrice();
+    });
+</script>
+</body>
+</html>

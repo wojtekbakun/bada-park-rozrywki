@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pracownik Atrakcja</title>
+</head>
+<body>
+<h1>Lista Powiązań Pracowników z Atrakcjami</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID Pracownika</th>
+        <th>ID Atrakcji</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pracownikAtrakcja : ${pracownikAtrakcje}">
+        <td th:text="${pracownikAtrakcja.idPracownika}"></td>
+        <td th:text="${pracownikAtrakcja.idAtrakcji}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

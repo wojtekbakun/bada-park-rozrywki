@@ -1,79 +1,130 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Login - Fun Park</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Park Rozrywki</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #ffefdb;
-            color: #333;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
+            background-color: #f9f9f9;
         }
-        .login-container {
-            background-color: #fff;
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            background: #fff;
             border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            width: 300px;
-            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 600px;
         }
-        h1 {
-            color: #ff4500;
+
+        .left {
+            padding: 40px;
+            text-align: center;
+            background-color: #f1f1f1;
+            flex: 1;
+        }
+
+        .left img {
+            width: 100%;
+            max-width: 200px;
             margin-bottom: 20px;
         }
-        .message {
-            color: red;
-            font-size: 0.9rem;
+
+        .left h2 {
+            font-size: 24px;
             margin-bottom: 10px;
         }
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
+
+        .left p {
+            font-size: 16px;
+            color: #555;
         }
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
+
+        .right {
+            padding: 40px;
+            flex: 1;
+        }
+
+        .right h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .right form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right form input {
             margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        input[type="submit"] {
-            background-color: #ff4500;
-            color: white;
             padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
-        input[type="submit"]:hover {
-            background-color: #e03e00;
+
+        .right form button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #fdd835;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .right form button:hover {
+            background-color: #fbc02d;
+        }
+
+        .links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .links a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-<div class="login-container">
-    <h1>Login</h1>
-    <div th:if="${param.error}" class="message">
-        Invalid username and password.
+<div class="container">
+    <div class="left">
+        <h2>Welcome Back!</h2>
+        <p>Log in to manage your park experience.</p>
+        <img src="/carousel.png" alt="Carousel">
     </div>
-    <div th:if="${param.logout}" class="message" style="color: green;">
-        You have been logged out.
+    <div class="right">
+        <h3>Login</h3>
+        <form th:action="@{/login}" method="post">
+            <label>
+                <input type="text" name="username" placeholder="Username" required>
+            </label>
+            <label>
+                <input type="password" name="password" placeholder="Password" required>
+            </label>
+            <button type="submit">Log in</button>
+        </form>
+        <div class="links">
+            <p><a href="/register">Don't have an account?</a></p>
+            <p><a href="/forgot-password">Forgot your password?</a></p>
+        </div>
     </div>
-    <form th:action="@{/login}" method="post">
-        <label for="username">User Name:</label>
-        <input type="text" id="username" name="username" />
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" />
-        <input type="submit" value="Sign In" />
-    </form>
 </div>
 </body>
 </html>

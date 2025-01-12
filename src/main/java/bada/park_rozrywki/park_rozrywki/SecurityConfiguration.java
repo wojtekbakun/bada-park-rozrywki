@@ -2,36 +2,48 @@ package bada.park_rozrywki.park_rozrywki;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.DefaultSecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public DefaultSecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/index").permitAll()
+                        .requestMatchers("/webjars/**").permitAll() // Umożliw dostęp do WebJars
                         .requestMatchers("/resources/static/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/main").authenticated()
+                        .requestMatchers("/main_admin").hasRole("ADMIN")
+                        .requestMatchers("/bilety_admin").hasRole("ADMIN")
+                        .requestMatchers("/bilety_user").hasRole("USER")
+                        .requestMatchers("/main_user").hasRole("USER")
+                        .requestMatchers("/errors").permitAll()
+                        .requestMatchers("/bilety/**").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .defaultSuccessUrl("/index", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .permitAll()
+                        .logoutUrl("/index")
                         .logoutSuccessUrl("/index")
-                        .invalidateHttpSession(true) // Inwalidacja sesji
-                        .deleteCookies("JSESSIONID") // Usunięcie cookies
+                        .permitAll()
+                )   .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .accessDeniedHandler(customAccessDeniedHandler())  // Obsługuje błąd 403
                 );
         return http.build();
     }
@@ -53,4 +65,20 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    // Custom AuthenticationEntryPoint (Obsługuje błąd 404)
+    private AuthenticationEntryPoint customAuthenticationEntryPoint() {
+        return (request, response, authException) -> {
+            response.sendRedirect("/errors/404");  // Zwraca stronę błędu 404
+        };
+    }
+
+    // Custom AccessDeniedHandler (Obsługuje błąd 403)
+    private AccessDeniedHandler customAccessDeniedHandler() {
+        return (request, response, accessDeniedException) -> {
+            response.sendRedirect("/errors/403");  // Zwraca stronę błędu 403
+        };
+    }
 }
+
+

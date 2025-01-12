@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Parki Rozrywki</title>
+</head>
+<body>
+<h1>Lista parków rozrywki</h1>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Nazwa</th>
+    <th>Adres</th>
+    <th>Data założenia</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="park : ${parki}">
+    <td th:text="${park.idParku}"></td>
+    <td th:text="${park.nazwa}"></td>
+    <td th:text="${park.adres}"></td>
+    <td th:text="${park.dataZalozenia}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

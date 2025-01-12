@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista atrakcji</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<h1>Lista atrakcji w parku rozrywki</h1>
+
+<!-- Filtry kategorii -->
+<div class="filters">
+    <label for="category-filter">Kategoria:</label>
+    <select id="category-filter" onchange="filterAttractions()">
+        <option value="all">Wszystkie</option>
+        <option value="Rodzinna">Rodzinne</option>
+        <option value="Ekstremalna">Ekstremalne</option>
+        <option value="Kids">Dla dzieci</option>
+    </select>
+</div>
+
+<!-- Siatka atrakcji -->
+<div class="attraction-grid">
+    <div class="attraction-card" th:each="atrakcja : ${atrakcje}" th:data-category="${atrakcja.typ}">
+        <h3 th:text="${atrakcja.nazwa}">Nazwa atrakcji</h3>
+        <p><strong>Typ:</strong> <span th:text="${atrakcja.typ}">Typ</span></p>
+        <p><strong>Ograniczenie wiekowe:</strong> <span th:text="${atrakcja.ograniczenieWieku}">Wiek</span></p>
+        <p><strong>Status:</strong> <span th:text="${atrakcja.stan}">Status</span></p>
+        <button th:onclick="|location.href='/atrakcje/info?id=' + ${atrakcja.idAtrakcji}|">Więcej informacji</button>
+    </div>
+</div>
+
+<script>
+    function filterAttractions() {
+        const filter = document.getElementById("category-filter").value.toLowerCase();
+        const attractions = document.querySelectorAll(".attraction-card");
+
+        attractions.forEach(card => {
+            const category = card.dataset.category.toLowerCase();
+            if (filter === "all" || category === filter) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

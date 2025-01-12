@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dzieci</title>
+</head>
+<body>
+<h1>Lista Dzieci</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Wzrost</th>
+        <th>Waga</th>
+        <th>ID Klienta</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dziecko : ${dzieci}">
+        <td th:text="${dziecko.wzrost}"></td>
+        <td th:text="${dziecko.waga}"></td>
+        <td th:text="${dziecko.idKlienta}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

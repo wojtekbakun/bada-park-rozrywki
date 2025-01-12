@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Strefy</title>
+</head>
+<body>
+<h1>Lista Stref</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID Strefy</th>
+        <th>Ograniczenie Wieku</th>
+        <th>Nazwa</th>
+        <th>ID Parku</th>
+        <th>ID Pracownika</th>
+        <th>ID Typu Strefy</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="strefa : ${strefy}">
+        <td th:text="${strefa.idStrefy}"></td>
+        <td th:text="${strefa.ograniczenieWieku}"></td>
+        <td th:text="${strefa.nazwa}"></td>
+        <td th:text="${strefa.idParku}"></td>
+        <td th:text="${strefa.idPracownika}"></td>
+        <td th:text="${strefa.idTypuStrefy}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

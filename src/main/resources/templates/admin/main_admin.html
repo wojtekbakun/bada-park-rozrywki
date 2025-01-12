@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admina</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .sidebar {
+      width: 200px;
+      background-color: #333;
+      color: white;
+      position: fixed;
+      height: 100%;
+      overflow: auto;
+    }
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 10px;
+      text-decoration: none;
+    }
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+    .content {
+      margin-left: 210px;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    .add-row-btn {
+      margin-left: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .add-row-btn:hover {
+      background-color: #45a049;
+    }
+
+    .submit-btn {
+      margin-top: 10px;
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .submit-btn:hover {
+      background-color: #007B9A;
+    }
+    button {
+      font-size: 14px;
+      margin-left: 5px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+
+  </style>
+</head>
+<body>
+<div class="sidebar">
+  <h2>Panel Admina</h2>
+  <a href="#Klienci">Klienci</a>
+  <a href="#Bilety">Bilety</a>
+  <a href="#Pracownicy">Pracownicy</a>
+  <a href="#Atrakcje">Atrakcje</a>
+  <a href="#Obiekty_uslugowe">Obiekty</a>
+  <a href="#Strefy">Strefy</a>
+  <a href="#Wlasciciele">Właściciele</a>
+</div>
+<div class="content">
+  <h1 id="zakladka1">Klienci</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>ID Klienta</th>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Czas Wejścia</th>
+      <th>Czas Wyjścia</th>
+      <th>Liczba Biletów</th>
+      <th>Wiek</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="klient : ${klienci}">
+      <td th:text="${klient.idKlienta}"></td>
+      <td th:text="${klient.imie}"></td>
+      <td th:text="${klient.nazwisko}"></td>
+      <td th:text="${klient.czasWejscia}"></td>
+      <td th:text="${klient.czasWyjscia}"></td>
+      <td th:text="${klient.liczbaBiletow}"></td>
+      <td th:text="${klient.wiek}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h1 id="zakladka2">Zakupione bilety</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>Rodzaj Biletu</th>
+      <th>Data Zakupu</th>
+      <th>Długość Biletu</th>
+      <th>Cena</th>
+      <th>ID Pracownika</th>
+      <th>ID Klienta</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bilet : ${bilety}">
+      <td th:text="${bilet.rodzajBiletu}"></td>
+      <td th:text="${bilet.dataZakupu}"></td>
+      <td th:text="${bilet.dlugoscBiletu}"></td>
+      <td th:text="${bilet.cena}"></td>
+      <td th:text="${bilet.idPracownika}"></td>
+      <td th:text="${bilet.idKlienta}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h1 >Pracownicy  <button class="add-row-btn" data-table="Pracownicy">
+    ➕
+  </button></h1>
+  <table id="Pracownicy">
+    <thead>
+    <tr>
+      <th>Adres</th>
+      <th>ID Pracownika</th>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>PESEL</th>
+      <th>ID Managera</th>
+      <th>Data Zatrudnienia</th>
+      <th>Wynagrodzenie</th>
+      <th>Nr Telefonu</th>
+      <th>FK ID Pracownika</th>
+      <th>ID Stanowiska</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pracownik : ${pracownicy}">
+      <td th:text="${pracownik.adres}"></td>
+      <td th:text="${pracownik.idPracownika}"></td>
+      <td th:text="${pracownik.imie}"></td>
+      <td th:text="${pracownik.nazwisko}"></td>
+      <td th:text="${pracownik.pesel}"></td>
+      <td th:text="${pracownik.idManagera}"></td>
+      <td th:text="${pracownik.dataZatrudnienia}"></td>
+      <td th:text="${pracownik.wynagrodzenie}"></td>
+      <td th:text="${pracownik.nrTelefonu}"></td>
+      <td th:text="${pracownik.fkIdPracownika}"></td>
+      <td th:text="${pracownik.idStanowiska}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+
+  <h1 >Atrakcje  <button class="add-row-btn" data-table="Atrakcje">
+    ➕
+  </button></h1>
+  <table id="Atrakcje">
+    <thead>
+    <tr>
+      <th>ID Atrakcji</th>
+      <th>Nazwa</th>
+      <th>Typ</th>
+      <th>Ograniczenie Wieku</th>
+      <th>Stan</th>
+      <th>Max Liczba Osób</th>
+      <th>ID Strefy</th>
+      <th>ID Typu Atrakcji</th>
+      <th>ID Parku</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="atrakcja : ${atrakcje}">
+      <td th:text="${atrakcja.idAtrakcji}"></td>
+      <td th:text="${atrakcja.nazwa}"></td>
+      <td th:text="${atrakcja.typ}"></td>
+      <td th:text="${atrakcja.ograniczenieWieku}"></td>
+      <td th:text="${atrakcja.stan}"></td>
+      <td th:text="${atrakcja.maxLiczbaOsob}"></td>
+      <td th:text="${atrakcja.idStrefy}"></td>
+      <td th:text="${atrakcja.idTypuAtrakcji}"></td>
+      <td th:text="${atrakcja.idParku}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+
+  <h1 >Obiekty  <button class="add-row-btn" data-table="Obiekty_uslugowe">
+    ➕
+  </button></h1>
+  <table id="Obiekty_uslugowe">
+    <thead>
+    <tr>
+      <th>ID Obiektu</th>
+      <th>Nazwa</th>
+      <th>Kategoria</th>
+      <th>Data Najmu</th>
+      <th>Czynsz</th>
+      <th>ID Strefy</th>
+      <th>ID Właściciela</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="obiekt : ${obiekty}">
+      <td th:text="${obiekt.idObiektu}"></td>
+      <td th:text="${obiekt.nazwa}"></td>
+      <td th:text="${obiekt.kategoria}"></td>
+      <td th:text="${obiekt.dataNajmu}"></td>
+      <td th:text="${obiekt.czynsz}"></td>
+      <td th:text="${obiekt.idStrefy}"></td>
+      <td th:text="${obiekt.idWlasciciela}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+
+  <h1 >Strefy  <button class="add-row-btn" data-table="Strefy">
+    ➕
+  </button></h1>
+  <table id="Strefy">
+    <thead>
+    <tr>
+      <th>ID Strefy</th>
+      <th>Ograniczenie Wieku</th>
+      <th>Nazwa</th>
+      <th>ID Parku</th>
+      <th>ID Pracownika</th>
+      <th>ID Typu Strefy</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="strefa : ${strefy}">
+      <td th:text="${strefa.idStrefy}"></td>
+      <td th:text="${strefa.ograniczenieWieku}"></td>
+      <td th:text="${strefa.nazwa}"></td>
+      <td th:text="${strefa.idParku}"></td>
+      <td th:text="${strefa.idPracownika}"></td>
+      <td th:text="${strefa.idTypuStrefy}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h1 >Właściciele  <button class="add-row-btn" data-table="Wlasciciele">
+    ➕
+  </button></h1>
+  <table id="Wlasciciele">
+    <thead>
+    <tr>
+      <th>ID Właściciela</th>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Nazwa Firmy</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="wlasciciel : ${wlasciciele}">
+      <td th:text="${wlasciciel.idWlasciciela}"></td>
+      <td th:text="${wlasciciel.imie}"></td>
+      <td th:text="${wlasciciel.nazwisko}"></td>
+      <td th:text="${wlasciciel.nazwaFirmy}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+
+</div>
+
+<script>
+  // Pobierz wszystkie przyciski dodawania wierszy
+  const buttons = document.querySelectorAll('.add-row-btn');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const tableId = button.dataset.table;
+      const table = document.getElementById(tableId);
+
+      if (table) {
+        const tbody = table.querySelector('tbody');
+        if (tbody) {
+          const newRow = tbody.insertRow(); // Dodaj nowy wiersz
+          const numCols = table.querySelector('thead tr').children.length;
+
+          for (let i = 0; i < numCols; i++) {
+            const cell = newRow.insertCell(i);
+
+            // Dodaj pole wejściowe w każdej komórce
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = `Wpisz wartość ${i + 1}`; // Opcjonalny placeholder
+            input.style.width = '100%'; // Dopasowanie szerokości
+            cell.appendChild(input);
+          }
+
+          // Dodaj przycisk "Zapisz" na końcu wiersza
+          const saveCell = newRow.insertCell();
+          const saveButton = document.createElement('button');
+          saveButton.textContent = 'Zapisz';
+          saveButton.style.backgroundColor = '#4CAF50';
+          saveButton.style.color = 'white';
+          saveButton.style.border = 'none';
+          saveButton.style.padding = '5px 10px';
+          saveButton.style.cursor = 'pointer';
+          saveButton.style.borderRadius = '4px';
+          saveCell.appendChild(saveButton);
+
+          // Obsługa kliknięcia przycisku "Zapisz"
+          saveButton.addEventListener('click', () => {
+            for (let i = 0; i < numCols; i++) {
+              const cell = newRow.cells[i];
+              const input = cell.querySelector('input');
+              if (input) {
+                // Zastąp pole tekstowe zwykłym tekstem
+                cell.textContent = input.value || 'Brak danych';
+              }
+            }
+            saveCell.remove(); // Usuń przycisk po zapisaniu
+          });
+        } else {
+          console.error(`Tabela z ID ${tableId} nie zawiera sekcji <tbody>.`);
+        }
+      } else {
+        console.error(`Tabela z ID ${tableId} nie istnieje.`);
+      }
+    });
+  });
+
+  const submitButtons = document.querySelectorAll('.submit-btn');
+
+  submitButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const tableId = button.dataset.table;
+      const table = document.getElementById(tableId);
+      const rows = table.querySelectorAll('tbody tr');
+      const form = document.createElement('form');
+      form.method = 'post';
+      form.action = `/${tableId.toLowerCase()}/save`;
+
+      rows.forEach((row, rowIndex) => {
+        const inputs = row.querySelectorAll('input');
+        inputs.forEach((input, colIndex) => {
+          const inputField = document.createElement('input');
+          inputField.type = 'hidden';
+          inputField.name = `rows[${rowIndex}].col${colIndex}`;
+          inputField.value = input.value || '';
+          form.appendChild(inputField);
+        });
+      });
+
+      document.body.appendChild(form);
+      form.submit();
+    });
+  });
+</script>
+
+
+</body>
+</html>

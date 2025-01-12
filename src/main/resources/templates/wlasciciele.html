@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Właściciele</title>
+</head>
+<body>
+<h1>Lista Właścicieli</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID Właściciela</th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>Nazwa Firmy</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="wlasciciel : ${wlasciciele}">
+        <td th:text="${wlasciciel.idWlasciciela}"></td>
+        <td th:text="${wlasciciel.imie}"></td>
+        <td th:text="${wlasciciel.nazwisko}"></td>
+        <td th:text="${wlasciciel.nazwaFirmy}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

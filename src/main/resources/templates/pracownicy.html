@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pracownicy</title>
+</head>
+<body>
+<h1>Lista Pracowników</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Adres</th>
+        <th>ID Pracownika</th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>PESEL</th>
+        <th>ID Managera</th>
+        <th>Data Zatrudnienia</th>
+        <th>Wynagrodzenie</th>
+        <th>Nr Telefonu</th>
+        <th>FK ID Pracownika</th>
+        <th>ID Stanowiska</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pracownik : ${pracownicy}">
+        <td th:text="${pracownik.adres}"></td>
+        <td th:text="${pracownik.idPracownika}"></td>
+        <td th:text="${pracownik.imie}"></td>
+        <td th:text="${pracownik.nazwisko}"></td>
+        <td th:text="${pracownik.pesel}"></td>
+        <td th:text="${pracownik.idManagera}"></td>
+        <td th:text="${pracownik.dataZatrudnienia}"></td>
+        <td th:text="${pracownik.wynagrodzenie}"></td>
+        <td th:text="${pracownik.nrTelefonu}"></td>
+        <td th:text="${pracownik.fkIdPracownika}"></td>
+        <td th:text="${pracownik.idStanowiska}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
