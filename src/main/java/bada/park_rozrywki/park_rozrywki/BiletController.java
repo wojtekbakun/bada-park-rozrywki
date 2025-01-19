@@ -23,7 +23,7 @@ public class BiletController {
         // Get the logged-in user's username
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //String username = authentication.getName();
-        String username = "Nowicka";
+        String username = "Zielinski";
         // Fetch tickets for the logged-in user
         List<Bilet> userTickets = biletRepository.findByUsername(username);
 

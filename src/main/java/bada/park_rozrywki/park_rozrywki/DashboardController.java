@@ -1,16 +1,25 @@
 package bada.park_rozrywki.park_rozrywki;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
 public class DashboardController {
+
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().invalidate(); // Unieważnij sesję
+        return "redirect:/index"; // Przekierowanie po wylogowaniu
+    }
 
     @RequestMapping("/main")
     public String defaultAfterLogin(HttpServletRequest request) {
@@ -46,6 +55,8 @@ public class DashboardController {
     @Autowired
     private WlascicielRepository wlascicielRepository;
 
+
+
     @GetMapping("/main_admin")
     public String showAdminPage(Model model) {
         // Pobranie danych z bazy
@@ -72,10 +83,22 @@ public class DashboardController {
     }
 
     @RequestMapping(value = {"/main_user"})
-    public String showUserPage(Model model) {
+    public String getUserData(Model model) {
+        model.addAttribute("klient", klientRepository.findUserById(1)); // Przykladowy ID użytkownika
         return "user/main_user";
     }
 
+    @PostMapping("/user/update")
+    public String updateUser(@RequestParam Integer idKlienta,
+                             @RequestParam String imie,
+                             @RequestParam String nazwisko,
+                             @RequestParam(required = false) String czasWejscia,
+                             @RequestParam(required = false) String czasWyjscia,
+                             @RequestParam Integer liczbaBiletow,
+                             @RequestParam Integer wiek) {
+        klientRepository.updateUser(idKlienta, imie, nazwisko, czasWejscia, czasWyjscia, liczbaBiletow, wiek);
+        return "redirect:/index";
+    }
 
     @RequestMapping("/bilety")
     public String ticketView(HttpServletRequest request) {

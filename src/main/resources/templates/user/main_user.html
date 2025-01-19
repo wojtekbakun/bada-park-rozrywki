@@ -1,71 +1,149 @@
-<!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Main User Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil użytkownika</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
 
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+        h1, h2 {
+            color: #333;
+        }
 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+        button.return-btn {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.return-btn:hover {
+            background-color: #007B9A;
+        }
+
+        button.logout-btn {
+            background-color: #FF5722;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        button.logout-btn:hover {
+            background-color: #E64A19;
+        }
+
+
+    </style>
 </head>
 <body>
+<button onclick="window.location.href='/index'" class="return-btn">
+    Powrót do strony głównej
+</button>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-    <div class="container">
-        <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+<h1>Profil użytkownika</h1>
 
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/index}">Home</a>
-                </li>
+<!-- Tabela z danymi użytkownika -->
+<h2>Twoje dane</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>Wiek</th>
+        <th>Liczba Biletów</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="klient : ${klient}">
+        <td th:text="${klient.imie}"></td>
+        <td th:text="${klient.nazwisko}"></td>
+        <td th:text="${klient.wiek}"></td>
+        <td th:text="${klient.liczbaBiletow}"></td>
+    </tr>
+    </tbody>
+</table>
 
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Main
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
+<!-- Formularz edycji danych -->
+<h2>Edytuj swoje dane</h2>
+<form action="/user/update" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-                <li class="nav-item">
-                    <a class="nav-link" th:inline="text" style="color:lightskyblue;">You are logged in as <b
-                            style="text-transform:capitalize">[[${#authentication.name}]]</b></a>
-                </li>
+    <input type="hidden" id="idKlienta" name="idKlienta" th:value="${klient[0].idKlienta}" />
 
-            </ul>
-        </div>
-    </div>
-</nav>
+    <label for="imie">Imię:</label>
+    <input type="text" id="imie" name="imie" th:value="${klient[0].imie}" required />
 
-<div class="container">
-    <div class="row">
+    <label for="nazwisko">Nazwisko:</label>
+    <input type="text" id="nazwisko" name="nazwisko" th:value="${klient[0].nazwisko}" required />
 
-        <div class="col-md-10 mt-5">
-            <form method="post" th:action="@{/index}">
-                <div class="form-group">
-                    <label style="font-size:30px" th:inline="text">Welcome <a
-                            style="color:lightskyblue; text-transform:capitalize"><b>[[${#authentication.name}]]</b></a>
-                        to the main page!</label>
-                    <div style="font-size:20px">If you want to logout, click "Logout" button under this text.</div>
-                </div>
+    <input type="hidden" id="liczbaBiletow" name="liczbaBiletow" th:value="${klient[0].liczbaBiletow}" readonly />
 
-                <button class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Sign Out">Logout
-                </button>
-            </form>
-        </div>
+    <label for="wiek">Wiek:</label>
+    <input type="number" id="wiek" name="wiek" th:value="${klient[0].wiek}" required />
 
-    </div>
-</div>
+    <button type="submit">Zapisz zmiany</button>
+</form>
 
-
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/script.js}"></script>
+<button onclick="window.location.href='/logout'" class="logout-btn">
+    Wyloguj się
+</button>
 
 </body>
 </html>

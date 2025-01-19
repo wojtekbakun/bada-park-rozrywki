@@ -2,6 +2,7 @@ package bada.park_rozrywki.park_rozrywki;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer;
 import org.springframework.security.core.userdetails.User;
@@ -21,17 +22,19 @@ public class SecurityConfiguration {
     public DefaultSecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/index").permitAll()
-                        .requestMatchers("/webjars/**").permitAll() // Umożliw dostęp do WebJars
-                        .requestMatchers("/resources/static/**").permitAll()
+                        .requestMatchers("/", "/index", "/login", "/logout").permitAll()
+                        .requestMatchers("/webjars/**").permitAll()
+                        .requestMatchers("/resources/static/**", "/resources/static").permitAll()
                         .requestMatchers("/main").authenticated()
                         .requestMatchers("/main_admin").hasRole("ADMIN")
                         .requestMatchers("/bilety_admin").hasRole("ADMIN")
-                        .requestMatchers("/bilety_user").hasRole("USER")
+                        .requestMatchers("/bilety_user", "/user/update").hasRole("USER")
                         .requestMatchers("/main_user").hasRole("USER")
                         .requestMatchers("/errors").permitAll()
                         .requestMatchers("/bilety/**").authenticated()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/pracownicy/**").authenticated()
+                        .anyRequest().authenticated()
+
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -39,12 +42,10 @@ public class SecurityConfiguration {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/index")
+                        .logoutUrl("/logout")
                         .logoutSuccessUrl("/index")
                         .permitAll()
-                )   .exceptionHandling(exceptionHandling -> exceptionHandling
-                        .accessDeniedHandler(customAccessDeniedHandler())  // Obsługuje błąd 403
-                );
+                ) ;
         return http.build();
     }
 
