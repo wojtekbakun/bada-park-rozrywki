@@ -23,6 +23,15 @@
     <a th:if="${#authorization.expression('isAnonymous()')}"
        href="/login"
        class="auth-link">Zaloguj się</a>
+
+    <!-- Przycisk wylogowania widoczny dla zalogowanych użytkowników -->
+    <form th:if="${#authorization.expression('isAuthenticated()')}"
+          th:action="@{/logout}"
+          method="post"
+          class="logout-form">
+      <button type="submit" class="logout-button">Wyloguj się</button>
+    </form>
+
   </div>
   <div class="header-content">
     <h1>Witamy w Parku Rozrywki!</h1>

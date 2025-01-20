@@ -122,6 +122,11 @@
     </div>
     <div class="right">
         <h3>Logowanie</h3>
+        <!-- Obsługa błędów logowania -->
+        <div th:if="${param.error}" class="error-toast">
+            <p>Nieprawidłowy login lub hasło. Spróbuj ponownie.</p>
+        </div>
+
         <form th:action="@{/login}" method="post">
             <label>
                 <input type="text" name="username" placeholder="Nazwa użytkownika" required>

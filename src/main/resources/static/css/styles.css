@@ -82,3 +82,48 @@ footer {
     text-align: center;
     padding: 20px 0;
 }
+
+.error-toast {
+    background-color: #FF5722;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    animation: fade-in 0.5s ease-in-out;
+}
+
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stylizacja przycisku wylogowania */
+.logout-form {
+    display: inline-block;
+    margin: 0;
+}
+
+.logout-button {
+    background-color: #FF5722; /* Pomarańczowy kolor */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #E64A19; /* Ciemniejszy pomarańcz */
+}
