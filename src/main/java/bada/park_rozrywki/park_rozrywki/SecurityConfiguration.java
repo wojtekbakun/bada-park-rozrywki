@@ -22,7 +22,7 @@ public class SecurityConfiguration {
     public DefaultSecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/index", "/login", "/logout").permitAll()
+                        .requestMatchers("/", "/index","/css/**", "/images/**", "/js/**", "/login", "/logout").permitAll()
                         .requestMatchers("/webjars/**").permitAll()
                         .requestMatchers("/resources/static/**", "/resources/static").permitAll()
                         .requestMatchers("/main").authenticated()

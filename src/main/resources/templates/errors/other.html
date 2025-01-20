@@ -1,37 +1,61 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl">
 <head>
     <meta charset="UTF-8"/>
-    <title>Error Page</title>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ups! Coś poszło nie tak</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .error-container {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .error-container h1 {
+            font-size: 48px;
+            color: #FF5722; /* Pomarańczowy kolor */
+        }
+
+        .error-container p {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #333; /* Ciemny tekst */
+        }
+
+        .error-container .button-buy {
+            background-color: #FF5722; /* Pomarańczowy przycisk */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        .error-container .button-buy:hover {
+            background-color: #E64A19;
+        }
+    </style>
 </head>
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+<header>
+    <h1>Błąd!</h1>
+</header>
+
+<main>
+    <div class="error-container">
+        <h1>Ups! Coś poszło nie tak</h1>
+        <p>Wystąpił nieoczekiwany błąd. Prosimy spróbować ponownie.</p>
+        <a href="/index" class="button-buy">Wróć do strony głównej</a>
+    </div>
+</main>
+
+<footer>
     <div class="container">
-        <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <p>&copy; 2025 Park Rozrywki. Wszystkie prawa zastrzeżone.</p>
+        <p>Adres: ul. Przykładowa 123, 00-123 Warszawa</p>
+        <p>Kontakt: +48 123 456 789, email: kontakt@parkrozrywki.pl</p>
     </div>
-</nav>
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 mt-5">
-                <div class="form-group">
-                    <div><b><p style="font-size:30px">Error</p></b></div>
-                    <div><p style="font-size:24px">An unexpected error has occurred</p></div>
-                </div>
-                <button onclick="window.location.href='/index'">
-                    Powrót do strony głównej
-                </button>
-        </div>
-    </div>
-</div>
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</footer>
 </body>
 </html>

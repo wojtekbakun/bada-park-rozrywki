@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Park Rozrywki</title>
+    <title>Logowanie - Park Rozrywki</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            flex-direction: column;
+            min-height: 100vh;
             background-color: #f9f9f9;
         }
 
@@ -24,19 +23,16 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             width: 600px;
+            margin: auto;
+            flex: 1;
         }
 
         .left {
             padding: 40px;
             text-align: center;
-            background-color: #f1f1f1;
+            background-color: #8EDCDF; /* Zielone tło */
             flex: 1;
-        }
-
-        .left img {
-            width: 100%;
-            max-width: 200px;
-            margin-bottom: 20px;
+            color: white;
         }
 
         .left h2 {
@@ -46,7 +42,7 @@
 
         .left p {
             font-size: 16px;
-            color: #555;
+            color: white;
         }
 
         .right {
@@ -57,6 +53,7 @@
         .right h3 {
             font-size: 22px;
             margin-bottom: 10px;
+            color: #333;
         }
 
         .right form {
@@ -75,15 +72,16 @@
         .right form button {
             padding: 10px;
             font-size: 16px;
-            background-color: #fdd835;
-            color: #000;
+            background-color: #FF5722;
+            color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .right form button:hover {
-            background-color: #fbc02d;
+            background-color: #E64A19;
         }
 
         .links {
@@ -92,7 +90,7 @@
         }
 
         .links a {
-            color: #007BFF;
+            color: #FF5722;
             text-decoration: none;
             font-size: 14px;
         }
@@ -100,31 +98,52 @@
         .links a:hover {
             text-decoration: underline;
         }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer p {
+            margin: 0;
+            padding: 5px 0;
+            color: white;
+            background: #333333;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="left">
-        <h2>Welcome Back!</h2>
-        <p>Log in to manage your park experience.</p>
-
+        <h2>Witaj ponownie!</h2>
+        <p>Zaloguj się, aby wejść do świata pełnego rozrywki.</p>
     </div>
     <div class="right">
-        <h3>Login</h3>
+        <h3>Logowanie</h3>
         <form th:action="@{/login}" method="post">
             <label>
-                <input type="text" name="username" placeholder="Username" required>
+                <input type="text" name="username" placeholder="Nazwa użytkownika" required>
             </label>
             <label>
-                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Hasło" required>
             </label>
-            <button type="submit">Log in</button>
+            <button type="submit">Zaloguj się</button>
         </form>
         <div class="links">
-            <p><a href="/register">Don't have an account?</a></p>
-            <p><a href="/forgot-password">Forgot your password?</a></p>
+            <p><a href="/register">Nie masz konta? Zarejestruj się</a></p>
+            <p><a href="/forgot-password">Zapomniałeś hasła?</a></p>
         </div>
     </div>
 </div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Park Rozrywki. Wszystkie prawa zastrzeżone.</p>
+        <p>Adres: ul. Przykładowa 123, 00-123 Warszawa</p>
+        <p>Kontakt: +48 123 456 789, email: kontakt@parkrozrywki.pl</p>
+    </div>
+</footer>
 </body>
 </html>
